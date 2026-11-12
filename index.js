@@ -9,10 +9,10 @@ const asText = (v) => [{ type: 'text', text: typeof v === 'string' ? v : JSON.st
 const obj = (properties, required = []) => ({ type: 'object', properties, required, additionalProperties: false });
 
 function renderThread(r) {
-  const lines = [
-    `帖子 ${r.tid} · 第${r.page}页 · ${r.sort === 'hot' ? '按热度' : '按楼层'} · ${r.posts.length} 层`,
-    '',
-  ];
+  const head = [`帖子 ${r.tid}`];
+  if (r.forum?.name) head.push(`${r.forum.name}吧`);
+  head.push(`第${r.page}页`, r.sort === 'hot' ? '按热度' : '按楼层', `${r.posts.length} 层`);
+  const lines = [head.join(' · '), ''];
   for (const p of r.posts) {
     const tags = [`#${p.floor}`];
     if (p.likes) tags.push(`赞${p.likes}`);
@@ -60,13 +60,13 @@ export function apply(ctx) {
         const limit = Math.max(1, Math.min(50, Math.floor(Number(args.limit) || 30)));
 
         try {
-          const posts = await readThread(tid, { page, sort, limit });
+          const { forum, posts } = await readThread(tid, { page, sort, limit });
           if (!posts.length) {
             return `帖子 ${tid} 没读到楼层：可能已被删、需要更高权限，或者这页没有内容。`;
           }
           // 服务端热度序并不严格，本地再按赞数压一遍，保证「高赞在前」名副其实
           if (sort === 'hot') posts.sort((a, b) => (b.likes - a.likes) || (a.floor - b.floor));
-          return renderThread({ tid, page, sort, posts });
+          return renderThread({ tid, forum, page, sort, posts });
         } catch (e) {
           if (e.code === 'NO_COOKIE') {
             return '还没配 BDUSS：把 cookie 里的 BDUSS 值写到 $DSH_HOME/tieba/BDUSS.txt（一行，纯值）。';
