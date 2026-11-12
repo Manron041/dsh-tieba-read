@@ -13,6 +13,18 @@
 
 网页版那条路被 TLS 指纹和验证码卡死，App protobuf 通道不用浏览器、不用过滑块。
 
+## 安装
+
+```bash
+# 从 GitHub
+dsh plugin --profile <profile> add github:Manron041/dsh-tieba-read
+
+# 本地开发
+dsh plugin --profile <profile> add link:D:\work\dsh-tieba-read
+```
+
+装完**重启一次 dsh**，工具才会注册进来。
+
 ## 配置
 
 把 BDUSS 写到 `$DSH_HOME/tieba/BDUSS.txt`（一行，纯值，不要 `BDUSS=` 前缀）：
