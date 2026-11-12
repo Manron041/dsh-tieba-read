@@ -1,0 +1,36 @@
+{
+  "name": "dsh-tieba-read",
+  "version": "0.1.0",
+  "description": "DSH 插件 · 读百度贴吧的楼层回复与楼中楼。走 App protobuf 通道，绕开网页版「百度安全验证」。",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22",
+    "dsh": ">=0.1.7-rc.1"
+  },
+  "dsh": {
+    "displayName": "读贴吧楼层",
+    "description": "读贴吧帖子的楼层回复和楼中楼，走 protobuf 通道，不吃网页版验证码。",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": "*"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-tools": {
+      "optional": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+# dsh-tieba-read —— DSH bundle patch
+#
+# 装上后 profile 里列出本包名即生效：
+#   dsh plugin --profile <name> add dsh-tieba-read
+# 本地开发：
+#   dsh plugin --profile <name> add link:D:\work\dsh-tieba-read
+
+- insert:
+    - id: tieba-read
+      name: dsh-tieba-read

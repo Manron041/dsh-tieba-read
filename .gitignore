@@ -1,0 +1,11 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# 凭证绝不进仓库
+BDUSS.txt
+*.cookie
+jar.txt
+.env
+.env.*
